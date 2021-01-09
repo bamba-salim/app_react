@@ -1,18 +1,22 @@
 // MODULES
+import {BrowserRouter as Router} from "react-router-dom";
+import AppRouter from "./Module/AppRouter";
+import Navbar from "./components/_globals/Navbar";
+
 
 // ASSETS
-import './App.css';
 
 // COMPONENNTS
-import Welcome from "./components/Welcome";
-
 
 
 function App() {
   return (
     <>
 
-      <Welcome/>
+      <Router>
+        <Navbar/>
+        <AppRouter/>
+      </Router>
 
     </>
   );
