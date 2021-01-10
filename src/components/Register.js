@@ -12,7 +12,8 @@ class Register extends React.Component {
       email: '',
       password: '',
       confirm_password: '',
-      redirect: false
+      redirect: false,
+      errors: []
     }
   }
 
@@ -47,7 +48,12 @@ class Register extends React.Component {
         this.setState({redirect: true})
       })
       .catch(err => {
-        console.log('err')
+        if (err.response.status === 401) {
+          this.setState({errors: err.response.data.errors}, () => {
+            console.log(err.response.data.errors)
+
+          })
+        }
       })
 
   }
@@ -61,26 +67,39 @@ class Register extends React.Component {
         <>
           <div className="container mt-3">
             <h2 className="text-center">Inscription</h2>
-            <form method="POST" onSubmit={this.handleFormSubmit}>
-              <div className="form-group">
+            <form method="POST" onSubmit={this.handleFormSubmit}
+                  className="row pt-3">
+              <div className="form-group col-12">
                 <label htmlFor="name">Name</label>
-                <input type="text" className="form-control" id="name" onChange={this.handleNameChange}/>
+                <input type="text" className="form-control" id="name"
+                       onChange={this.handleNameChange}/>
+                {this.state.errors && this.state.errors.name ?
+                  <small className="text-danger">{this.state.errors.name}</small> : ''}
               </div>
-              <div className="form-group">
+              <div className="form-group col-12">
                 <label htmlFor="mail">Address Email</label>
-                <input type="text" className="form-control" id="mail" onChange={this.handleMailChange}/>
+                <input type="text" className="form-control" id="mail"
+                       onChange={this.handleMailChange}/>
+                {this.state.errors && this.state.errors.email ?
+                  <small className="text-danger">{this.state.errors.email}</small> : ''}
               </div>
-              <div className="form-group">
+              <div className="form-group col-12">
                 <label htmlFor="password">Mot de pass</label>
                 <input type="password" name="" id="password" className="form-control"
                        onChange={this.handlePasswordChange}/>
+                {this.state.errors && this.state.errors.password ?
+                  <small className="text-danger">{this.state.errors.password}</small> : ''}
               </div>
-              <div className="form-group">
+              <div className="form-group col-12">
                 <label htmlFor="password2">Confirmation mot de passe</label>
-                <input type="password" name="" id="password2" className="form-control"
+                <input type="password" id="password2" className="form-control"
                        onChange={this.handleConfirmPasswordChange}/>
+                {this.state.errors && this.state.errors.confirm_password ?
+                  <small className="text-danger">{this.state.errors.confirm_password}</small> : ''}
               </div>
-              <button type="submit" className="btn btn-primary">Submit</button>
+              <div className="col-12">
+                <button type="submit" className="btn btn-primary">Submit</button>
+              </div>
             </form>
           </div>
         </>

@@ -23,11 +23,24 @@ class Navbar extends React.Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav ml-auto">
-              <Link className="nav-link active" to="/login">Se connecter </Link>
-              <Link className="nav-link active" to="/register">S'inscrire </Link>
-              <span className="nav-link active pointer" onClick={this.disconect} >Se déconnecter</span>
-            </div>
+            <ul className="navbar-nav ml-auto">
+
+              {
+                localStorage.getItem('token')
+                  ?
+                  <>
+                    <Link className="nav-link active" to="/pictures/new">Poster une photo</Link>
+                    <Link className="nav-link" to="/logout">Se déconnecter</Link>
+                  </>
+                  :
+                  <>
+                    <Link className="nav-link active" to="/login">Se connecter</Link>
+                    <Link className="nav-link" to="/register">S'inscrire</Link>
+                  </>
+              }
+
+              {/*<span className="nav-link active pointer" onClick={this.disconect}>Se déconnecter</span>*/}
+            </ul>
           </div>
         </nav>
       </>
