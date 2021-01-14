@@ -5,12 +5,15 @@ class Navbar extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      isConnect: false
+    }
   }
 
-  disconect = event => {
-    console.log('déconnecté')
+
+  logout = event => {
     localStorage.removeItem('token')
+    this.setState({isConnect: false})
   }
 
   render() {
@@ -23,24 +26,22 @@ class Navbar extends React.Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <ul className="navbar-nav ml-auto">
-
+            <div className="navbar-nav ml-auto">
               {
                 localStorage.getItem('token')
                   ?
                   <>
-                    <Link className="nav-link active" to="/pictures/new">Poster une photo</Link>
-                    <Link className="nav-link" to="/logout">Se déconnecter</Link>
+
+                    <Link className="nav-link" to="/pictures/new">Poster une photo</Link>
+                    <span className="nav-link" onClick={this.logout} style={{cursor: 'pointer'}}>Se déconnecter</span>
                   </>
                   :
                   <>
-                    <Link className="nav-link active" to="/login">Se connecter</Link>
+                    <Link className="nav-link" to="/login">Se connecter</Link>
                     <Link className="nav-link" to="/register">S'inscrire</Link>
                   </>
               }
-
-              {/*<span className="nav-link active pointer" onClick={this.disconect}>Se déconnecter</span>*/}
-            </ul>
+            </div>
           </div>
         </nav>
       </>

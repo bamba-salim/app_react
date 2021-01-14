@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
 
-import {Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect} from 'react-router-dom';
+import Navbar from "./_globals/Navbar";
 
 class Register extends React.Component {
 
@@ -65,6 +66,7 @@ class Register extends React.Component {
     } else {
       return (
         <>
+          <Navbar/>
           <div className="container mt-3">
             <h2 className="text-center">Inscription</h2>
             <form method="POST" onSubmit={this.handleFormSubmit}

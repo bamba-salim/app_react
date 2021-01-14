@@ -1,7 +1,6 @@
 // MODULES
 import {BrowserRouter as Router} from "react-router-dom";
 import AppRouter from "./Module/AppRouter";
-import Navbar from "./components/_globals/Navbar";
 
 
 // ASSETS
@@ -12,12 +11,9 @@ import Navbar from "./components/_globals/Navbar";
 function App() {
   return (
     <>
-
       <Router>
-        <Navbar/>
         <AppRouter/>
       </Router>
-
     </>
   );
 }

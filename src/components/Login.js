@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
 import {Redirect} from 'react-router-dom';
+import Navbar from "./_globals/Navbar";
 
 class Login extends Component {
 
@@ -54,7 +55,7 @@ class Login extends Component {
     } else {
       return (
         <>
-
+          <Navbar/>
           <div className="container mt-3">
             <h2 className="text-center">Connexion</h2>
             <form method="POST" onSubmit={this.handleFormSubmit} className="row pt-3">
