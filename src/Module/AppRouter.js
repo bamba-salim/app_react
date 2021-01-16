@@ -3,7 +3,8 @@ import {Switch, Route} from 'react-router-dom'
 import Home from "../components/_globals/Home";
 import Register from "../components/Register";
 import Login from "../components/Login";
-import PostPicture from "../components/PostPicture";
+import PostPicture from "../components/Pictures/PostPicture";
+import Picture from "../components/Pictures/Picture";
 
 class AppRouter extends React.Component {
 
@@ -15,6 +16,7 @@ class AppRouter extends React.Component {
           <Route path="/register" component={Register}/>
           <Route path="/login" component={Login}/>
           <Route path="/pictures/new" component={PostPicture}/>
+          <Route path="/pictures/:id" component={Picture}/>
         </Switch>
 
       </>

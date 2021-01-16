@@ -1,10 +1,52 @@
 import React from 'react'
 import Navbar from "./Navbar";
+import axios from "axios";
+import {Link} from "react-router-dom";
+import AppLoader from "../_globals/AppLoader";
+
 
 class Home extends React.Component {
   constructor() {
     super();
-    this.state = {}
+    this.state = {
+      pictures: []
+    }
+  }
+
+  componentDidMount() {
+    axios.post('http://127.0.0.1:8000/api/pictures')
+      .then(res => {
+        this.setState({pictures: res.data})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  handleSearchChange = event => {
+    this.setState({search: event.target.value}, () => {
+      if (this.state.search === '') {
+        this.getArticles()
+      }
+    })
+
+  }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    this.getArticles()
+  }
+
+  getArticles() {
+    let bodyFormData = new FormData()
+    bodyFormData.set('search', this.state.search)
+    axios.post('http://127.0.0.1:8000/api/pictures', bodyFormData)
+      .then(res => {
+        this.setState({pictures: res.data})
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   render() {
@@ -12,27 +54,60 @@ class Home extends React.Component {
       <>
         <Navbar/>
         <div className="container mt-3">
-          <div className="jumbotron jumbotron-fluid">
+
+
+          <div className="jumbotron jumbotron-fluid mt-3">
             <div className="container">
               <h1 className="display-4">Home</h1>
-              <p className="lead">This is a modified jumbotron that occupies the entire horizontal space of its
-                parent.</p>
             </div>
           </div>
-          <div className="row row-cols-1 row-cols-md-3">
-            <div className="col mb-4">
-              <div className="card h-100">
-                <div className="card-header">                    <h5 className="card-title">Card title</h5>
-                </div>
-                <img src="https://fakeimg.pl/400x400/282828/eae0d0/" className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <p className="card-text">This is a longer card with supporting text below as a natural lead-in to
-                      additional content. This content is a little bit longer.</p>
-                  </div>
-              </div>
-            </div>
+          <div className="d-flex justify-content-center mt-3">
+            <form className="form-inline" method="POST" onSubmit={this.handleSubmit}>
+              <input type="search" name="search" id="search" className="form-control w-100"
+                     placeholder="Rechercher une photo.." onChange={this.handleSearchChange}/>
+            </form>
+          </div>
+          {
+            this.state.pictures ?
+              (<>
+                <div className="row row-cols-2 row-cols-md-4 mt-3">
 
-          </div>
+                  {
+                    this.state.pictures.map((picture) => (
+                      <div className="col mb-4" key={picture.id}>
+                        <div className="card h-100">
+                          <div className="card-header">
+                            <h5 className="card-title">{picture.title}</h5>
+                          </div>
+                          <img src={`http://127.0.0.1:8000/storage/pictures/${picture.image}`} className="card-img-top"
+                               alt={picture.title}/>
+                          <div className="card-body">
+                            <p className="card-text">{picture.description}</p>
+                          </div>
+                          <div className="card-footer">
+                            <div className="ml-auto">
+                              <Link to={`/pictures/${picture.id}`} className="btn btn-info">En savoir +</Link>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    ))
+
+
+                  }
+
+
+                </div>
+              </>)
+              :
+              (<>
+                <AppLoader/>
+              </>)
+
+          }
+
         </div>
       </>
     );

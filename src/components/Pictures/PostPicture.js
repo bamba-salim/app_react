@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Navbar from "./_globals/Navbar";
+import Navbar from "../_globals/Navbar";
 import axios from "axios";
 import {Redirect} from "react-router-dom";
 
@@ -46,8 +46,10 @@ class PostPicture extends Component {
     bodyFormData.set('description', this.state.description)
     bodyFormData.set('image', this.state.image)
 
+    let headers = {headers: {'API_TOKEN': localStorage.getItem('token')}}
 
-    axios.post('http://127.0.0.1:8000/api/pictures', bodyFormData)
+
+    axios.post('http://127.0.0.1:8000/api/pictures/new', bodyFormData, headers)
       .then(res => {
         this.setState({redirect: true})
         console.log(res)
