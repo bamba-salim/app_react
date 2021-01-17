@@ -45,7 +45,7 @@ class Register extends React.Component {
     axios.post('http://127.0.0.1:8000/api/register', bodyFormData)
       .then(res => {
         console.log(res.data)
-        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('token', res.data.api_token)
         this.setState({redirect: true})
       })
       .catch(err => {

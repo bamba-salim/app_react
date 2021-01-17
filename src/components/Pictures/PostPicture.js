@@ -46,7 +46,7 @@ class PostPicture extends Component {
     bodyFormData.set('description', this.state.description)
     bodyFormData.set('image', this.state.image)
 
-    let headers = {headers: {'API_TOKEN': localStorage.getItem('token')}}
+    let headers = {headers: {'token': localStorage.getItem('token')}}
 
 
     axios.post('http://127.0.0.1:8000/api/pictures/new', bodyFormData, headers)
