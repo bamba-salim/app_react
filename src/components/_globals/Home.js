@@ -2,7 +2,6 @@ import React from 'react'
 import Navbar from "./Navbar";
 import axios from "axios";
 import {Link} from "react-router-dom";
-import AppLoader from "../_globals/AppLoader";
 
 
 class Home extends React.Component {
@@ -68,7 +67,7 @@ class Home extends React.Component {
             </form>
           </div>
           {
-            this.state.pictures ?
+            this.state.pictures > 0 ?
               (<>
                 <div className="row row-cols-2 row-cols-md-4 mt-3">
 
@@ -103,7 +102,9 @@ class Home extends React.Component {
               </>)
               :
               (<>
-                <AppLoader/>
+                <div className="text-center mt-3">
+                  <h2>Pas de posts pour le moment...</h2>
+                </div>
               </>)
 
           }

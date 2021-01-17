@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-import {BrowserRouter as Router, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Navbar from "./_globals/Navbar";
 
 class Register extends React.Component {

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import axios from "axios";
 import {Redirect} from 'react-router-dom';
 import Navbar from "./_globals/Navbar";
+import {GoogleLoginButton} from "react-social-login-buttons";
 
 class Login extends Component {
 
@@ -49,6 +50,12 @@ class Login extends Component {
       })
   }
 
+  googleLogin = event => {
+
+    window.open('http://127.0.0.1:8000/auth/redirect/google','_self')
+
+  }
+
   render() {
     if (this.state.redirect || localStorage.getItem('token')) {
       return (<Redirect to="/"/>)
@@ -88,6 +95,9 @@ class Login extends Component {
               </div>
 
             </form>
+            <div className="d-flex justify-content-center">
+                <GoogleLoginButton className="col-6" onClick={this.googleLogin}/>
+            </div>
           </div>
         </>
       );
